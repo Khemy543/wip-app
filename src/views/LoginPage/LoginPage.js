@@ -17,7 +17,9 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import axios from "axios"
 
+var domain = 'https://wipap.herokuapp.com'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -61,13 +63,19 @@ export default function LoginPage(props) {
     const toggleEye =()=> setEye(!eye);
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(e);
-        if(username === "admin@gmail.com" && password === "password"){
-            props.history.push("/admin/dashboard")
-        }
-        else{
-            setVisible(true)
-        }
+        axios.post(`${domain}/api/wmc/auth/login`,
+        {
+          username:username,
+          password:password
+        })
+        .then(res=>{
+          console.log(res.data);
+          localStorage.setItem('access_token', res.data.access_token);
+          window.location.reload("/")
+        })
+        .catch(error=>{
+          console.log(error)
+        })
     }
 
   return (
@@ -85,11 +93,11 @@ export default function LoginPage(props) {
         :
         <></>
         }
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            required={true}
             fullWidth
             id="email"
             label="Email Address"
@@ -102,7 +110,7 @@ export default function LoginPage(props) {
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            required={true}
             fullWidth
             name="password"
             label="Password"
@@ -142,7 +150,7 @@ export default function LoginPage(props) {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/auth/registration-page" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

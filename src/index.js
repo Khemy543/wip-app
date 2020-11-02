@@ -26,13 +26,16 @@ import Admin from "layouts/Admin.js";
 
 import "assets/css/material-dashboard-react.css?v=1.9.0";
 import LoginPage from "views/LoginPage/LoginPage";
+import Registration from "views/Registration/Registration.js";
+import ProtectedLoginRoute from "RouteProtection/ProtectedLoginRoute"
 
 
 ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route path="/admin" component={Admin} />
-      <Route path="/auth/login-page" component={LoginPage}/>
+      <ProtectedLoginRoute path="/auth/login-page" component={LoginPage}/>
+      <ProtectedLoginRoute path="/auth/registration-page" component={Registration}/>
       <Redirect from="/" to="/auth/login-page" />
     </Switch>
   </Router>,

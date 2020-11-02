@@ -14,6 +14,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
+import axios from "axios"
 
 const styles = {
   cardCategoryWhite: {
@@ -35,8 +36,22 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
+let user=localStorage.getItem('access_token');
+var domain = 'https://wipap.herokuapp.com';
 
 export default function UserProfile() {
+  
+  React.useEffect(()=>{
+  axios.get(`${domain}/api/wmc/auth/admin`,
+  {headers:{ 'Authorization':`Bearer ${user}`}})
+  .then(res=>{
+    console.log(res.data)
+  })
+  .catch(error=>{
+    console.log(error.response.data)
+  })
+  },[])
+
   const classes = useStyles();
   return (
     <div>

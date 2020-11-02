@@ -18,6 +18,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -31,20 +32,40 @@ import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
+import CreateUser from "views/Users/CreateUser.js"
+import GetUsers from "views/Users/GetUsers";
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    icon: Dashboard,
+    header:"dashboard",
+    icon:ExpandMore,
     component: DashboardPage,
     layout: "/admin"
   },
   {
     path: "/user",
     name: "User Profile",
-    icon: Person,
+    header:"user",
+    icon: ExpandMore,
     component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/create-user",
+    name: "Create User",
+    header:"user",
+    icon: ExpandMore,
+    component: CreateUser,
+    layout: "/admin"
+  },
+   {
+    path: "/get-all-users",
+    name: "All User",
+    header:"user",
+    icon: ExpandMore,
+    component: GetUsers,
     layout: "/admin"
   },
   /* {

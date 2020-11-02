@@ -42,6 +42,9 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  /* React.useEffect(()=>{
+    localStorage.clear()
+  },[]) */
   const classes = useStyles();
   return (
     <div>
@@ -98,7 +101,7 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <LocalOffer />
-                Tracked from Github
+                Tracked from Vehicles
               </div>
             </CardFooter>
           </Card>
@@ -109,7 +112,7 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
+              <p className={classes.cardCategory}>Vehicles</p>
               <h3 className={classes.cardTitle}>+245</h3>
             </CardHeader>
             <CardFooter stats>
@@ -240,9 +243,9 @@ export default function Dashboard() {
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+              <h4 className={classes.cardTitleWhite}>Active Vehicles</h4>
               <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
+                New vehicles on 15th September, 2016
               </p>
             </CardHeader>
             <CardBody>

@@ -1,0 +1,68 @@
+[1101/224632.001:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[1101/224632.188:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1101/225632.614:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1101/225632.617:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\06b07e08-8566-4114-8e0d-6d57c1f88749: The system cannot find the path specified. (0x3)
+[1101/225632.619:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\150bf277-874d-465b-a971-b7401585809d: The system cannot find the path specified. (0x3)
+[1101/225632.620:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\375dc6c4-3131-4d36-afbb-171c3b9cc85e: The system cannot find the path specified. (0x3)
+[1101/225632.623:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\4513746d-aa92-4529-958e-91228514d4cf: The system cannot find the path specified. (0x3)
+[1101/225632.625:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\5117b2f1-8ec0-429f-80d6-58ea21f54292: The system cannot find the path specified. (0x3)
+[1101/225632.626:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\661dada7-682a-4bec-b3d5-bdd9a84ef504: The system cannot find the path specified. (0x3)
+[1101/225632.909:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\8440b55c-2f9a-4155-98c5-55eca80e97b8: The system cannot find the path specified. (0x3)
+[1101/225632.911:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\8bb98077-1c38-483a-9e2d-7aea19637a86: The system cannot find the path specified. (0x3)
+[1101/225632.913:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\a95893f2-0ebb-4be0-954c-4ee10d4066b4: The system cannot find the path specified. (0x3)
+[1101/225632.918:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\ddc96a07-c5d7-4ca7-ba2d-4ad9acb826ef: The system cannot find the path specified. (0x3)
+[1101/225632.921:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\GIDEON ASSAFUAH\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\f93b9ca4-e86b-4d60-b889-9fecb423d3be: The system cannot find the path specified. (0x3)
+[1101/225632.921:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1101/225632.922:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1101/225632.923:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1101/230132.289:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1101/231632.289:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/064550.055:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/070115.142:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/071623.054:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/073123.245:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/074623.677:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/080123.680:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/081623.682:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/083123.710:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/084624.113:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/090124.181:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/091624.237:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/093124.238:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/094624.239:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/100124.240:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/101624.241:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/103124.167:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/104624.168:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/110124.169:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/111624.170:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/113124.223:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/114624.231:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/120124.231:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/121639.538:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/123923.711:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/125423.745:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/130923.746:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/132424.306:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/133925.053:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/135426.184:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/140926.196:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/142426.197:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/143926.199:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/145426.202:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/150926.556:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/152426.591:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/153926.593:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/155426.594:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/160926.595:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/162426.607:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/163926.609:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/165426.610:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/170926.651:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/172426.676:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/173926.677:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/175426.874:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/180926.904:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/182427.101:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/183927.230:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1102/184812.689:ERROR:crash_report_database_win.cc(457)] unexpected header
