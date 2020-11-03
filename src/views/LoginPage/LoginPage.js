@@ -65,7 +65,7 @@ export default function LoginPage(props) {
         e.preventDefault();
         axios.post(`${domain}/api/wmc/auth/login`,
         {
-          username:username,
+          email:username,
           password:password
         })
         .then(res=>{
