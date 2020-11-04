@@ -88,7 +88,8 @@ export default function CreateUser() {
     },
     {headers:{ 'Authorization':`Bearer ${user}`}})
     .then(res=>{
-      console.log(res.data)
+      console.log(res.data);
+      alert("success")
 
     })
     .catch(error=>{

@@ -34,6 +34,8 @@ import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import CreateUser from "views/Users/CreateUser.js"
 import GetUsers from "views/Users/GetUsers";
+import CreateVehicle from "views/Vehicle/CreateVehicle";
+import GetVehicles from "views/Vehicle/GetVehicles";
 
 const dashboardRoutes = [
   {
@@ -65,6 +67,22 @@ const dashboardRoutes = [
     header:"user",
     icon: ExpandMore,
     component: GetUsers,
+    layout: "/admin"
+  },
+  {
+    path: "/create-vehicle",
+    name: "Create Vehicle",
+    header:"vehicle",
+    icon: ExpandMore,
+    component: CreateVehicle,
+    layout: "/admin"
+  },
+  {
+    path: "/get-vehicle",
+    name: "View Vehicle",
+    header:"vehicle",
+    icon: ExpandMore,
+    component: GetVehicles,
     layout: "/admin"
   },
   /* {

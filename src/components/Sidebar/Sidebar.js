@@ -26,18 +26,27 @@ const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const [dashopen, setDashOpen] = React.useState(true);
-  const [userDash, setUserDash] = React.useState(false)
+  const [userDash, setUserDash] = React.useState(false);
+  const [vehicleDash, setVehicleDash] = React.useState(false)
+
   const classes = useStyles();
 
   //toggles
   const toggleDash = () => {
     setDashOpen(!dashopen);
-    setUserDash(false)
+    setUserDash(false);
+    setVehicleDash(false)
   };
 
   const toggleUser = () => {
     setUserDash(!userDash);
+    setDashOpen(false);
+    setVehicleDash(false)
+  };
+   const toggleVehicle = () => {
+    setVehicleDash(!vehicleDash);
     setDashOpen(false)
+    setUserDash(false)
   };
 
 
@@ -148,6 +157,57 @@ export default function Sidebar(props) {
     </List>
   );
   
+  var vehicleLinks = (
+    <List className={classes.list}>
+      {routes.map((prop, key) => {
+        var activePro = " ";
+        var listItemClasses;
+          listItemClasses = classNames({
+            [" " + classes[color]]: activeRoute(prop.layout + prop.path)
+          });
+        
+        const whiteFontClasses = classNames({
+          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+        });
+        if(prop.header === "vehicle"){
+        return (
+          <NavLink
+            to={prop.layout + prop.path}
+            className={activePro + classes.item}
+            activeClassName="active"
+            key={key}
+          >
+            <ListItem button className={classes.itemLink + listItemClasses}>
+              {typeof prop.icon === "string" ? (
+                <Icon
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive
+                  })}
+                >
+                  {prop.icon}
+                </Icon>
+              ) : (
+                <prop.icon
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive
+                  })}
+                />
+              )}
+              <ListItemText
+                primary={prop.name}
+                className={classNames(classes.itemText, whiteFontClasses, {
+                  [classes.itemTextRTL]: props.rtlActive
+                })}
+                disableTypography={true}
+              />
+            </ListItem>
+          </NavLink>
+        );
+        }
+      })}
+    </List>
+  );
+
   var brand = (
     <div className={classes.logo}>
       <a
@@ -228,6 +288,17 @@ export default function Sidebar(props) {
             </ListItem>
               <Collapse in={userDash} timeout="auto" unmountOnExit>
                 {userLinks}
+              </Collapse>
+
+              <ListItem button onClick={toggleVehicle}>
+              <ListItemIcon style={{color:"white"}}>
+                <Person />
+              </ListItemIcon>
+              <ListItemText primary="Vehicles" />
+              {vehicleDash ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+              <Collapse in={vehicleDash} timeout="auto" unmountOnExit>
+                {vehicleLinks}
               </Collapse>
           </div>
 
