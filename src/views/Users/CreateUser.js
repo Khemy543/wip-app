@@ -57,7 +57,7 @@ const useStyles = makeStyles(styles);
 export default function CreateUser() {
   const [roles, setRoles] = React.useState([])
   const [title, setTitle] = React.useState("Mr");
-  const [role, setRole] = React.useState(1);
+  const [role, setRole] = React.useState(2);
   const [name,setName] = React.useState("");
   const [email,setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -79,6 +79,13 @@ export default function CreateUser() {
   const handleSubmit=(e)=>{
     e.preventDefault()
     axios.post(`${domain}/api/wmc/super_admin/create/admin`,
+    {
+      name:name,
+      title:title,
+      role_id:role,
+      phone:phone,
+      email:email
+    },
     {headers:{ 'Authorization':`Bearer ${user}`}})
     .then(res=>{
       console.log(res.data)
@@ -111,6 +118,7 @@ export default function CreateUser() {
                     label="Full Name"
                     name="username"
                     autoComplete="Full Name"
+                    type="text"
                     autoFocus
                     value={name}
                     onChange={e=>setName(e.target.value)}
@@ -135,6 +143,7 @@ export default function CreateUser() {
                     name="email"
                     autoComplete="email"
                     value={email}
+                    type="email"
                     onChange={e=>setEmail(e.target.value)}
                     InputProps={{
                       endAdornment:<InputAdornment position="end">

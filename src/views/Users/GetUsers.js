@@ -27,8 +27,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Button from "components/CustomButtons/Button.js";
-
 import IconButton from "@material-ui/core/IconButton";
+import axios from "axios"
+
+var domain = 'https://wipap.herokuapp.com'
+var user=localStorage.getItem('access_token');
 
 const styles = {
   cardCategoryWhite: {
@@ -74,6 +77,55 @@ const StyledTableCell = withStyles((theme) => ({
 
 export default function GetUsers() {
   const classes = useStyles();
+
+  const [users, setUSers] = React.useState([]);
+
+  React.useEffect(()=>{
+    console.log(user)
+  axios.get(`${domain}/api/wmc/super_admin/fetch-admins`,
+  {headers:{ 'Authorization':`Bearer ${user}`}})
+  .then(res=>{
+    console.log(res.data)
+    setUSers(res.data)
+  })
+  .catch(error=>{
+    console.log(error.response.data);
+  })
+},[])
+
+const handleBlockUser=(id)=>{
+  let tempUsers = [...users];
+  axios.post(`${domain}/api/wmc/super_admin/${id}/block`,null,
+  {headers:{ 'Authorization':`Bearer ${user}`}} )
+  .then(res=>{
+    console.log(res.data);
+    let selected = tempUsers.find(item=>item.id === id);
+    selected.isActive = false;
+    setUSers(tempUsers);
+  })
+  .catch(error=>{
+    console.log(error.response.data)
+  })
+}
+
+
+const handleUnBlockUser=(id)=>{
+  let tempUsers = [...users];
+  axios.post(`${domain}/api/wmc/super_admin/${id}/unblock`,null,
+  {headers:{ 'Authorization':`Bearer ${user}`}} )
+  .then(res=>{
+    console.log(res.data);
+    let selected = tempUsers.find(item=>item.id === id);
+    selected.isActive = true;
+    setUSers(tempUsers);
+  })
+  .catch(error=>{
+    console.log(error.response.data)
+  })
+}
+
+
+
   return (
     <div>
       <GridContainer>
@@ -88,41 +140,38 @@ export default function GetUsers() {
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center">Shop Id</StyledTableCell>
+                        <StyledTableCell align="center"> #</StyledTableCell>
+                        <StyledTableCell align="center"> Id</StyledTableCell>
                         <StyledTableCell align="center">Name</StyledTableCell>
-                        <StyledTableCell align="center">Campus</StyledTableCell>
+                        <StyledTableCell align="center">Email</StyledTableCell>
+                        <StyledTableCell align="center">Phone</StyledTableCell>
+                        <StyledTableCell align="center">Role</StyledTableCell>
+                        <StyledTableCell align="center">Updated</StyledTableCell>
+                        <StyledTableCell align="center">IsActive</StyledTableCell>
                         <StyledTableCell align="center">Action</StyledTableCell>
                     
                     </TableRow>
                     </TableHead>
                     <TableBody>
+                    {users.map((value,key)=>(
                     <StyledTableRow>
-                    <StyledTableCell align="center">1</StyledTableCell>
-                    <StyledTableCell align="center">Name</StyledTableCell>
-                    <StyledTableCell align="center">here</StyledTableCell>
-                    <StyledTableCell align="center" className={classes.tableActions}>
-                <Tooltip
-                id="tooltip-top"
-                title="View Shop"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-                >
-                <IconButton
-                    aria-label="Edit"
-                    className={classes.tableActionButton}
-                >
-                    <Visibility
-                    color="primary"
-                    className={
-                        classes.tableActionButtonIcon + " " + classes.edit
+                    <StyledTableCell align="center">{key+1}</StyledTableCell>
+                    <StyledTableCell align="center">{value.id}</StyledTableCell>
+                    <StyledTableCell align="center">{value.name}</StyledTableCell>
+                    <StyledTableCell align="center">{value.email}</StyledTableCell>
+                    <StyledTableCell align="center">{value.phone}</StyledTableCell>
+                    <StyledTableCell align="center">{value.role.role}</StyledTableCell>
+                    <StyledTableCell align="center">{value.role.updated_at}</StyledTableCell>
+                    {value.isActive===true?
+                    <StyledTableCell align="center">Active</StyledTableCell>
+                    :
+                    <StyledTableCell align="center">InActive</StyledTableCell>
                     }
-                    />
-                </IconButton>
-                </Tooltip>
-                {true?
+                    <StyledTableCell align="center" className={classes.tableActions}>
+                {value.isActive?
                 <Tooltip
                 id="tooltip-top-block"
-                title="Block Shop"
+                title="Block User"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
                 >
@@ -131,6 +180,7 @@ export default function GetUsers() {
                     color="secondary"
                     aria-label="Block"
                     className={classes.tableActionButton}
+                    onClick={()=>handleBlockUser(value.id)}
                 >
                     <LockIcon
                     color="secondary"
@@ -143,7 +193,7 @@ export default function GetUsers() {
                 :
                 <Tooltip
                 id="tooltip-top-unblock"
-                title="Unblock Shop"
+                title="Unblock User"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
                 >
@@ -151,6 +201,7 @@ export default function GetUsers() {
                     color="success"
                     aria-label="Unblock"
                     className={classes.tableActionButton}
+                    onClick={()=>handleUnBlockUser(value.id)}
                 >
                     <LockOpenIcon
                     color="success"
@@ -163,7 +214,7 @@ export default function GetUsers() {
                 }
                 <Tooltip
                 id="tooltip-top-start"
-                title="Delete Shop"
+                title="Delete User"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
                 >
@@ -192,6 +243,7 @@ export default function GetUsers() {
                 </Modal> */}
             </StyledTableCell>
                 </StyledTableRow>
+                ))}
                     </TableBody>
                 </Table>
                 </TableContainer>

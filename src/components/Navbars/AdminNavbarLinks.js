@@ -18,10 +18,14 @@ import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
+import axios from "axios";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(styles);
+let user=localStorage.getItem('access_token');
+var domain = 'https://wipap.herokuapp.com';
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
@@ -47,6 +51,19 @@ export default function AdminNavbarLinks() {
   const handleCloseProfile = () => {
     setOpenProfile(null);
   };
+  const handleLogout=()=>{
+    handleCloseProfile()
+    axios.post(`${domain}/api/wmc/auth/logout`,null,
+    {headers:{ 'Authorization':`Bearer ${user}`}})
+    .then(res=>{
+      console.log(res.data);
+      localStorage.clear();
+      window.location.reload("/")
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+}
   return (
     <div>
       <div className={classes.searchWrapper}>
@@ -197,7 +214,7 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Profile
+                     <Link to="/admin/user">Profile</Link> 
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}
@@ -207,7 +224,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleLogout}
                       className={classes.dropdownItem}
                     >
                       Logout

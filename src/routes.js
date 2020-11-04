@@ -47,7 +47,6 @@ const dashboardRoutes = [
   {
     path: "/user",
     name: "User Profile",
-    header:"user",
     icon: ExpandMore,
     component: UserProfile,
     layout: "/admin"
