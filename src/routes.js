@@ -36,6 +36,7 @@ import CreateUser from "views/Users/CreateUser.js"
 import GetUsers from "views/Users/GetUsers";
 import CreateVehicle from "views/Vehicle/CreateVehicle";
 import GetVehicles from "views/Vehicle/GetVehicles";
+import EditVehicle from "views/Vehicle/EditVehicles";
 
 const dashboardRoutes = [
   {
@@ -83,6 +84,15 @@ const dashboardRoutes = [
     header:"vehicle",
     icon: ExpandMore,
     component: GetVehicles,
+    layout: "/admin"
+  },
+  {
+    path: "/edit-vehicle",
+    name: "Edit Vehicle",
+    header:"vehicle",
+    invisible:true,
+    icon: ExpandMore,
+    component: EditVehicle,
     layout: "/admin"
   },
   /* {

@@ -3,7 +3,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from "components/CustomButtons/Button.js";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import clsx from 'clsx';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -26,12 +28,15 @@ import BusinessIcon from '@material-ui/icons/Business';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import CheckIcon from '@material-ui/icons/Check';
+import SaveIcon from '@material-ui/icons/Save';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { green } from '@material-ui/core/colors';
 
 import axios from 'axios'
 /* function Copyright() {
@@ -50,6 +55,10 @@ import axios from 'axios'
 var domain = 'https://wipap.herokuapp.com'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -65,11 +74,36 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   formControl: {
-    margin: theme.spacing(1),
     width: '100%',
+    marginTop:"15px"
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  wrapper: {
+    margin: theme.spacing(1),
+    position: 'relative',
+  },
+  buttonSuccess: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
+  },
+  fabProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    zIndex: 1,
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   },
 }));
 
@@ -88,18 +122,30 @@ export default function Registration(props) {
     const [eye, setEye] = React.useState(false);
     const [eye2, setEye2] = React.useState(false);
     const [logo, setLogo] = React.useState(null);
+    const [imagePreviewUrl, setImagePreviewUrl] = React.useState(null);
     const [business_cert , setBusiness_Cert] = React.useState(null)
     const [message, setMessage] = React.useState("");
     const [percentage, setPercentage] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
     const [color, setColor] = React.useState("");
+
 
     const classes = useStyles();
     const toggleEye =()=> setEye(!eye);
     const toggleEye2 =()=> setEye2(!eye2);
     
+    const buttonClassname = clsx({
+      [classes.buttonSuccess]: success,
+    });
+
+    React.useEffect(()=>{
+      
+    },[])
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+        setLoading(true)
         console.log(e);
         var bodyFormData = new FormData();
         bodyFormData.append('name', username);
@@ -136,11 +182,15 @@ export default function Registration(props) {
                 console.log("data",res.data);
                 setVisible(true);
                 setMessage("Registration Successful");
-                setColor("success")
+                setColor("success");
+                setSuccess(true);
+                setLoading(false);
+                props.history.push('/auth/login-page')
             })
             .catch(error=>{
                 console.log(error.response.data);
-                setVisible(true)
+                setVisible(true);
+                setLoading(false);
                 setMessage(error.response.data.errors.name || error.response.data.errors.email || error.response.data.errors.phone || error.response.data.errors.company_name
                     || error.response.data.errors.company_email || error.response.data.errors.company_phone || error.response.data.errors.company_address || error.response.data.errors.business_cert
                     || error.response.data.errors.title || error.response.data.errors.logo)
@@ -152,6 +202,20 @@ export default function Registration(props) {
             setMessage("Password Do Not Match!!")
             setColor("error")
         }
+    }
+
+    const _handleImageChange=(e)=>{
+      e.preventDefault();
+    
+      let reader = new FileReader();
+      let file = e.target.files[0];
+    
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+        setLogo(file)
+      }
+    
+      reader.readAsDataURL(file)
     }
 
   return (
@@ -172,7 +236,7 @@ export default function Registration(props) {
         <form className={classes.form} onSubmit={handleSubmit}>
         <Container>
         <GridContainer>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -196,7 +260,7 @@ export default function Registration(props) {
             }}
           />
           </GridItem>
-          <GridItem md={6}>
+          <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -223,7 +287,7 @@ export default function Registration(props) {
         </GridContainer>
 
         <GridContainer>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
         <FormControl variant="outlined" className={classes.formControl} >
             <InputLabel id="demo-simple-select-outlined-label">Title</InputLabel>
             <Select
@@ -239,7 +303,7 @@ export default function Registration(props) {
             </Select>
         </FormControl>
           </GridItem>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -266,7 +330,7 @@ export default function Registration(props) {
         </GridContainer>
         
         <GridContainer>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -290,7 +354,7 @@ export default function Registration(props) {
             }}
           />
           </GridItem>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -317,7 +381,7 @@ export default function Registration(props) {
         </GridContainer>
 
         <GridContainer>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -338,7 +402,7 @@ export default function Registration(props) {
             }}
           />
           </GridItem>
-        <GridItem md={6}>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -360,72 +424,27 @@ export default function Registration(props) {
           </GridItem>
          
         </GridContainer>
-
         <GridContainer>
-        <GridItem md={6}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required={true}
-            fullWidth
-            id="Password"
-            label="Password"
-            type={eye?"text":"password"}
-            name="password"
-            autoComplete="passowrd"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-            InputProps={{
-                endAdornment:<InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={toggleEye}
-                >
-                  {eye ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }}
-          />
-          </GridItem>
-          <GridItem md={6}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required={true}
-            fullWidth
-            name="password"
-            label="Confirm Password"
-            type={eye2?"text":"password"}
-            id="password"
-            autoComplete="current-password"
-            value={cpassword}
-            onChange={(e)=>setCPassword(e.target.value)}
-            InputProps={{
-                endAdornment:<InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={toggleEye2}
-                >
-                  {eye2 ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }}
-          />
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
+          <small>
+            Company Logo
+          </small>
+          <GridContainer>
+          <GridItem>
+          <br/>
+          <input type="file" 
+                        onChange={(e)=>_handleImageChange(e)} />
+                        
+            </GridItem>
+            <GridItem>
+              
+          <img
+            alt="..."
+            src={imagePreviewUrl}
+            style={ {width: "80px",height:"80px",marginBottom:"20px", borderRadius:"50%"} }
+          ></img>
           </GridItem>
           </GridContainer>
-            <br/>
-          <GridContainer>
-        <GridItem md={6}>
-        <label htmlFor="upload-photo">
-        Upload Logo
-        </label>
-        <br/>
-        <input
-            id="upload-photo"
-            name="upload-photo"
-            type="file"
-            onChange={e=>setLogo(e.target.files[0])}
-        />
 
         {/* <Fab
             color="secondary"
@@ -443,7 +462,7 @@ export default function Registration(props) {
             <AddIcon />
         </Fab> */}
           </GridItem>
-          <GridItem md={6}>
+          <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
           <label htmlFor="upload-cert">
             Upload Business Cert
             </label>
@@ -472,11 +491,65 @@ export default function Registration(props) {
             </Fab> */}
           </GridItem>
           </GridContainer>
+        <GridContainer>
+        <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth
+            id="Password"
+            label="Password"
+            type={eye?"text":"password"}
+            name="password"
+            autoComplete="passowrd"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            InputProps={{
+                endAdornment:<InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={toggleEye}
+                >
+                  {eye ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }}
+          />
+          </GridItem>
+          <GridItem md={6} sm={12} xs={12} lg={6} xl={6}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth
+            name="password"
+            label="Confirm Password"
+            type={eye2?"text":"password"}
+            id="password"
+            autoComplete="current-password"
+            value={cpassword}
+            onChange={(e)=>setCPassword(e.target.value)}
+            InputProps={{
+                endAdornment:<InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={toggleEye2}
+                >
+                  {eye2 ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }}
+          />
+          </GridItem>
+          </GridContainer>
+            <br/>
+         
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
-          <Button
+         {/*  <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -484,7 +557,31 @@ export default function Registration(props) {
             className={classes.submit}
           >
             Submit
-          </Button>
+          </Button> */}
+          <div className={classes.root}>
+          <div className={classes.wrapper}>
+            <Fab
+              aria-label="save"
+              color="primary"
+              className={buttonClassname}
+            >
+              {success ? <CheckIcon /> : <SaveIcon />}
+            </Fab>
+            {loading && <CircularProgress variant="static" value={percentage} size={68} className={classes.fabProgress} />}
+          </div>
+          <div className={classes.wrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={`${buttonClassname} ${classes.submit}`}
+              disabled={loading}
+              type="submit"
+            >
+              {!success?<>Sign Up</>:<>Success</>}
+            </Button>
+            {loading && <CircularProgress value={percentage} size={24} className={classes.buttonProgress} />}
+          </div>
+        </div>
           <Grid container>
             <Grid item xs>
               {/* <Link href="#" variant="body2">

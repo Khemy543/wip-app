@@ -75,7 +75,7 @@ const StyledTableCell = withStyles((theme) => ({
   }
   
 
-export default function GetVehicles() {
+export default function GetVehicles(props) {
   const classes = useStyles();
 
   const [vehicles, setVehicles] = React.useState([]);
@@ -91,7 +91,7 @@ export default function GetVehicles() {
     setVehicles(res.data)
   })
   .catch(error=>{
-    console.log(error.response.data);
+    console.log(error);
   })
 },[])
 
@@ -105,7 +105,7 @@ const handleDelete=(ide)=>{
         setVehicles(newData)
     })
     .catch(error=>{
-        console.log(error.response.data)
+        console.log(error)
     })
 }
 
@@ -117,7 +117,7 @@ const handleDelete=(ide)=>{
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Create New User</h4>{/* 
+              <h4 className={classes.cardTitleWhite}>All Vehicles</h4>{/* 
               <p className={classes.cardCategoryWhite}>Complete your profile</p> */}
             </CardHeader>
             <CardBody>
@@ -140,10 +140,10 @@ const handleDelete=(ide)=>{
                     <StyledTableRow>
                     <StyledTableCell align="center">{key+1}</StyledTableCell>
                     <StyledTableCell align="center">{value.vehicle_no}</StyledTableCell>
-                    <StyledTableCell align="center">{value.name}</StyledTableCell>
                     <StyledTableCell align="center">{value.gps_module}</StyledTableCell>
-                    <StyledTableCell align="center">{value.created_at}</StyledTableCell>
-                    <StyledTableCell align="center">{value.updated_at}</StyledTableCell>
+                    <StyledTableCell align="center">{value.garbage_type.garbage_type}</StyledTableCell>
+                    <StyledTableCell align="center">{value.garbage_type.created_at}</StyledTableCell>
+                    <StyledTableCell align="center">{value.garbage_type.updated_at}</StyledTableCell>
                     <StyledTableCell align="center" className={classes.tableActions}>
                     <Tooltip
                     id="tooltip-top-start"
@@ -152,9 +152,10 @@ const handleDelete=(ide)=>{
                     classes={{ tooltip: classes.tooltip }}
                     >
                     <IconButton
-                        color="secondary"
+                        color="primary"
                         aria-label="view"
                         className={classes.tableActionButton}
+                        onClick={()=>props.history.push('/admin/edit-vehicle',{vehicle:value})}
                     >
                         <Visibility
                         className={

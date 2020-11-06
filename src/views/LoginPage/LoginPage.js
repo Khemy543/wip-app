@@ -17,6 +17,9 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import clsx from 'clsx';
+import { green } from '@material-ui/core/colors';
 import axios from "axios"
 
 var domain = 'https://wipap.herokuapp.com'
@@ -43,10 +46,27 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
+  }, wrapper: {
+    margin: theme.spacing(1),
+    position: 'relative',
+  },
+  buttonSuccess: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -58,11 +78,14 @@ export default function LoginPage(props) {
     const [password, setPassword] = React.useState("");
     const [visible, setVisible] = React.useState(false);
     const [eye, setEye] = React.useState(false)
+    const [loading, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
 
     const classes = useStyles();
     const toggleEye =()=> setEye(!eye);
     const handleSubmit=(e)=>{
         e.preventDefault();
+        setLoading(true)
         axios.post(`${domain}/api/wmc/auth/login`,
         {
           email:username,
@@ -77,6 +100,9 @@ export default function LoginPage(props) {
           console.log(error)
         })
     }
+    const buttonClassname = clsx({
+      [classes.buttonSuccess]: success,
+    });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -134,7 +160,7 @@ export default function LoginPage(props) {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          {/* <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -142,7 +168,20 @@ export default function LoginPage(props) {
             className={classes.submit}
           >
             Sign In
-          </Button>
+          </Button> */}
+          <div className={classes.wrapper}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={`${buttonClassname} ${classes.submit}`}
+              disabled={loading}
+              type="submit"
+            >
+              {!success?<>Sign In</>:<>Success</>}
+            </Button>
+            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+          </div>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

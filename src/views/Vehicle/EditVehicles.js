@@ -55,15 +55,15 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function CreateVehicle(props) {
+export default function EditVehicle(props) {
   const [types,setTypes]= React.useState([])
-  const [type, setType] = React.useState(1);
-  const [gps, setGPS] = React.useState('');
-  const [vehicle, setVehicle] = React.useState('')
-  const classes = useStyles();
+  const [type, setType] = React.useState(props.location.state.vehicle.garbage_type.id);
+  const [gps, setGPS] = React.useState(props.location.state.vehicle.gps_module);
+  const [vehicle, setVehicle] = React.useState(props.location.state.vehicle.vehicle_no)
   const [message, setMessage]  = React.useState("");
   const [color,setColor] = React.useState("");
   const [visible, setVisible] = React.useState(false)
+  const classes = useStyles();
 
   React.useEffect(()=>{
     axios.get(`${domain}/api/garbage/types`,
@@ -74,12 +74,12 @@ export default function CreateVehicle(props) {
     })
     .catch(error=>{
       console.log(error)
-    })
+    });
   },[])
 
   const handleSubmit=(e)=>{
       e.preventDefault();
-      axios.post(`${domain}/api/wmc/vehicle/create`,
+      axios.patch(`${domain}/api/wmc/vehicle/${props.location.state.vehicle.id}/update`,
     {
       garbage_type_id:type,
       vehicle_no:vehicle,
@@ -89,8 +89,13 @@ export default function CreateVehicle(props) {
     .then(res=>{
       console.log(res.data);
       setVisible(true);
-      setMessage("Vehicle Created Successfully");
-      setColor("success")
+      setMessage("Vehicle Upaded Successfully");
+      setColor("success");
+      setTimeout(
+          function(){
+            props.history.push('/admin/get-vehicle')
+          },1500
+      )
 
     })
     .catch(error=>{
@@ -114,7 +119,7 @@ export default function CreateVehicle(props) {
           <Card>
             <form className={classes.form} onSubmit={handleSubmit}>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Create New Vehicle</h4>{/* 
+              <h4 className={classes.cardTitleWhite}>Edit Vehicle Details</h4>{/* 
               <p className={classes.cardCategoryWhite}>Complete your profile</p> */}
             </CardHeader>
             <CardBody>
@@ -185,7 +190,7 @@ export default function CreateVehicle(props) {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button type="submit" color="primary">Create</Button>
+              <Button type="submit" color="primary">Update</Button>
             </CardFooter>
               </form>
           </Card>

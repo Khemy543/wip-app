@@ -169,7 +169,7 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
         });
-        if(prop.header === "vehicle"){
+        if(prop.header === "vehicle" && prop.invisible===undefined){
         return (
           <NavLink
             to={prop.layout + prop.path}
